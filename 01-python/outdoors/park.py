@@ -1,3 +1,3 @@
 def draw_park():
-    print("park not found")
+    print("park")
     return
