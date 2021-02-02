@@ -1,3 +1,3 @@
 def draw_gym():
-    print("gym not found")
+    print("[This is LA Fitness]")
     return
