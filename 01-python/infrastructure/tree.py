@@ -1,3 +1,10 @@
 def draw_tree():
-    print("tree not found")
+    print(
+    r''''     /\      
+     /\*\     
+    /\O\*\    
+   /*/\/\/\   
+      ||      ''')
     return
+
+draw_tree()
