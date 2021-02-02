@@ -1,3 +1,6 @@
+import random
+
 def draw_school():
-    print("school not found")
+    schoollist=['MIT','Harvard','Boston University']
+    print("school found:", random.choice(schoollist) ,"is here!")
     return
