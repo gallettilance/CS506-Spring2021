@@ -1,3 +1,3 @@
 def draw_library():
-    print("library not found")
+    print("------------ This is the Library! ------------")
     return
