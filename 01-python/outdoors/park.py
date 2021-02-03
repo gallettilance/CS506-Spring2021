@@ -1,3 +1,5 @@
+import random
 def draw_park():
-    print("park not found")
+    parkchoices=['theme','central','industrial']
+    print("This is a(n) "+random.choice(parkchoices)+' park! Enjoy your time!')
     return
