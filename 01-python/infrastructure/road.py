@@ -1,3 +1,5 @@
 def draw_road():
-    print("road not found")
+    print("\n----------------------------")
+    print("- - - - - - - - - - - - - - ")
+    print("----------------------------\n")
     return
