@@ -1,3 +1,11 @@
 def draw_tree():
-    print("tree not found")
+    print("\noo000oo000oo000o")
+    print("oo000oo000oo000o")
+    print("oo000oo000oo000o")
+    print("oo000oo000oo000o")
+    print("    ||||||||    ")
+    print("    ||||||||    ")
+    print("    ||||||||    ")
+    print("    ||||||||    ")
+    print("    ||||||||    \n")
     return
