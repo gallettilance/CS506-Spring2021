@@ -1,3 +1,4 @@
+#lab2
 def convert_str(s):
     types = [int, float]
     for t in types:

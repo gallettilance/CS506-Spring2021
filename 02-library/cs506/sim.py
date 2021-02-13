@@ -1,3 +1,4 @@
+#lab2
 def euclidean_dist(x, y):
     if x == [] or y == []:
         raise ValueError("lengths must not be zero")
