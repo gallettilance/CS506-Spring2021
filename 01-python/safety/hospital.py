@@ -1,3 +1,7 @@
+import random
+
+
 def draw_hospital():
-    print("hospital not found")
+    numPatients = random.randint(0, 10000)
+    print("total number of patients = ", numPatients)
     return
