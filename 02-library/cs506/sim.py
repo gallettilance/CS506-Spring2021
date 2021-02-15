@@ -27,15 +27,14 @@ def jaccard_dist(x, y):
     set_y = set(y)
 
     intersect = set_x & set_y
-    union = set_x | set_y
-    return 1 - (len(intersect)/len(union))
+    union_x_y = set_x | set_y
+    return 1 - (len(intersect)/len(union_x_y))
 
 def dot_product(x,y):
     if x == [] or y == []:
         raise ValueError("lengths must not be zero")
     if len(x) != len(y):
         raise ValueError("lengths must be equal")
-
     res = 0
     for i in range(len(x)):
         res += x[i] * y[i]
@@ -48,5 +47,12 @@ def norm(x):
     for i in range(len(x)):
         res += (x[i])**2
     return res**(1/2)
+
+def cosine_sim(x, y):
+    if x == [] or y == []:
+        raise ValueError("lengths must not be zero")
+    if len(x) != len(y):
+        raise ValueError("lengths must be equal")
+    return dot_product(x,y)/(norm(x) * norm(y))
 
 # Feel free to add more
