@@ -1,3 +1,3 @@
 def draw_museum():
-    print("museum not found")
+    print("This is the Museum of Fine Arts")
     return
