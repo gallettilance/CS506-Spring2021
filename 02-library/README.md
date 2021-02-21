@@ -50,6 +50,22 @@ Run the tests with the following command
     tox 
 ```
 
+If you get 
+'''bash 
+    ERROR: InterpreterNotFound: python3.7
+'''
+In your terminal find your current version of python running in your virtual environment
+'''bash
+    python3 --version
+'''
+Navigate to tox.ini and open in the text editor of your choice. Modify the line 
+'''bash
+    envlist = py37
+'''
+Change py37 to py(your python version)
+For example, if you are running python 3.8.5, change it to envlist = py38
+
+
 Ensure that all the tests are failing because of a "NotImplementedError" being raised.
 
 ## Goal
