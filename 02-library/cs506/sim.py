@@ -1,4 +1,8 @@
 def euclidean_dist(x, y):
+    if x == [] or y == []:
+        raise ValueError("lengths must not be zero")
+    if len(x) != len(y):
+        raise ValueError("lengths must be equal")
     res = 0
     for i in range(len(x)):
         res += (x[i] - y[i]) ** 2
@@ -6,29 +10,50 @@ def euclidean_dist(x, y):
 
 
 def manhattan_dist(x, y):
+    if x == [] or y == []:
+        raise ValueError("lengths must not be zero")
+    if len(x) != len(y):
+        raise ValueError("lengths must be equal")
     res = 0
     for i in range(len(x)):
-        res += (x[i] - y[i])
+        res += abs(x[i] - y[i])
     return res
     # raise NotImplementedError()
 
 
 def jaccard_dist(x, y):
-    intersection = len(list(set(x).intersection(set(y))))
-    union = (len(x) + len(y)) - intersection
-    return 1 - float(intersection) / union
+    if x == [] or y == []:
+        raise ValueError("lengths must not be zero")
+    set_x = set(x)
+    set_y = set(y)
+    intersect_x_y = set_x & set_y
+    union_x_y = set_x | set_y
+    return 1 - len(intersect_x_y) / len(union_x_y)
 
 
-# raise NotImplementedError()
+def dot_product(x, y):
+    if x == [] or y == []:
+        raise ValueError("lengths must not be zero")
+    if len(x) != len(y):
+        raise ValueError("lengths must be equal")
+    res = 0
+    for i in range(len(x)):
+        res += x[i] * y[i]
+    return res
+
+
+def norm(x):
+    if x == []:
+        raise ValueError("length must be zero")
+    res = 0
+    for i in range(len(x)):
+        res += (x[i]) ** 2
+    return res ** 0.5
+
 
 def cosine_sim(x, y):
-    dot = sum(a * b for a, b in zip(x, y))
-    norm_x = sum(a * a for a in x) ** 0.5
-    norm_y = sum(b * b for b in y) ** 0.5
-    return dot / (norm_x * norm_y)
-
-
-def jaccard_sim(x, y):
-    intersection = len(list(set(x).intersection(set(y))))
-    union = (len(x) + len(y)) - intersection
-    return float(intersection) / union
+    if x == [] or y == []:
+        raise ValueError("lengths must not be zero")
+    if len(x) != len(y):
+        raise ValueError("lengths must be equal")
+    return dot_product(x, y) / (norm(x) * norm(y))
