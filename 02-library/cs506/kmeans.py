@@ -2,7 +2,7 @@ from collections import defaultdict
 from math import inf
 import random
 import csv
-
+#import numpy as np
 
 def point_avg(points):
     """
@@ -11,15 +11,17 @@ def point_avg(points):
     
     Returns a new point which is the center of all the points.
     """
-    dimensino_point = len(points[0])
-    for pt in points:
-        if len(pt) != dimensino_point:
-            raise ValueError("points are not in the same dimension")
-    res = ()
-    for j in range(dimensino_point):
-        x = [p[j] for p in points]
-        res.append(sum(x)/dimensino_point)
-    return res
+    if len(points) == 0:
+        raise ValueError('points should not be empty')
+    ret = []
+    for i in range(len(points[0])):
+        ret.append(0)
+    for point in points:
+        for i in range(len(point)):
+            ret[i] += point[i]
+    for i in range(len(ret)):
+        ret[i] = ret[i]/len(points)
+    return ret
 
         
 
@@ -31,13 +33,23 @@ def update_centers(dataset, assignments):
     Compute the center for each of the assigned groups.
     Return `k` centers in a list
     """
-    res = []
-    for l in assignments:
-        curlist = [elem for elem in l]
-        cur_points = [dataset[i] for i in curlist]
-        res.append(point_avg(cur_points))
+    k = 0
+    for i in range(len(assignments)):
+        if assignments[i] > k:
+            k = assignments[i]
 
-    return res
+    points_after_assignment = []
+    for i in range(k+1):
+        points_after_assignment.append([])
+
+    for i in range(len(assignments)):
+        points_after_assignment[assignments[i]].append(dataset[i])
+
+    centers = []
+    for i in range(len(points_after_assignment)):
+        centers.append(point_avg(points_after_assignment[i]))
+
+    return centers
 
 
 def assign_points(data_points, centers):
@@ -74,15 +86,30 @@ def generate_k(dataset, k):
     Given `data_set`, which is an array of arrays,
     return a random set of k points from the data_set
     """
-    return random.sample(dataset, k)
+    #return random.sample(dataset, k)
+    ret = []
+    included = []
+    while k > len(ret):
+        temp = random.randint(0, len(dataset)-1)
+        if temp not in included:
+            ret.append(dataset[temp])
+            included.append(temp)
+    return ret
 
 def cost_function(clustering):
-    res = 0
+    '''res = 0
     for cluster in clustering:
         cur_center = point_avg(cluster)
         for i in cluster:
             res+=distance(cur_center, i)
-    return res
+    return res'''
+    cost = 0
+    for each in clustering:
+        centroid = point_avg(clustering[each])
+        for point in clustering[each]:
+            cost += distance_squared(point, centroid)
+    return cost
+    # this change help pass 2 more cases
 
 
 def generate_k_pp(dataset, k):
@@ -97,19 +124,15 @@ def generate_k_pp(dataset, k):
     first_select = random.choice(dataset)
     selected_centroid.append(first_select)
     # check the distance and gradually pick the rest
-    while len(selected_centroid)<k:
-        distancelist = []
-        for point in dataset:
-            curdist = []
-            for eachselected in selected_centroid:
-                curdist.append(distance(eachselected,point))
-            curmin = min(curdist)
-            curmin /= curmin.sum()
-            distancelist.append((curmin,point))
-        curselected = random.choice(dataset, p = curmin / np.sum(curmin))
-        selected_centroid.append(curselected)
+    centroid = random.choice(dataset)
+    ret = []
+    while len(ret) < k:
+        p = np.square(centroid[np.newaxis, ...] - dataset).sum(1)
+        p = p / p.sum()
+        centroid = random.choices(dataset, p)[0]
+        ret.append(centroid)
 
-    return selected_centroid
+    return ret
 
 
 
@@ -140,3 +163,4 @@ def k_means_pp(dataset, k):
 
     k_points = generate_k_pp(dataset, k)
     return _do_lloyds_algo(dataset, k_points)
+
