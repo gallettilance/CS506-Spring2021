@@ -100,3 +100,40 @@ def test_jaccard():
     z = _generate_rand_point(dimension)
     assert sim.jaccard_dist(x, y) <= sim.jaccard_dist(x, z) + sim.jaccard_dist(z, y)
 
+
+def test_minkowski():
+    # sanity checks
+    try:
+        sim.minkowski_distance([], [], 2)
+    except ValueError as e:
+        assert str(e) == "lengths must not be zero"
+    try:
+        sim.minkowski_distance([0], [0, 0], 2)
+    except ValueError as e:
+        assert str(e) == "lengths must be equal"
+    try:
+        sim.minkowski_distance([1,2], [2,3], 0.2)
+    except ValueError as e:
+        assert str(e) == "p must be bigger or equal to 1"
+
+    # p = 1
+    assert sim.minkowski_distance([0, 0, 0], [1, 0, 0], 1) == 1
+    assert sim.minkowski_distance([0, 0, 0], [0, 0, 0], 1) == 0
+    assert sim.minkowski_distance([0, 0, 0], [1, 0, 0], 1) == sim.minkowski_distance([1, 0, 0], [0, 0, 0], 1)
+
+    # p = 2
+    assert sim.minkowski_distance([0, 0], [1, 0], 2) == 1
+    assert sim.minkowski_distance([0, 4], [3, 0], 2) == 5
+    assert sim.minkowski_distance([0, 0, 0], [2, 0, 0], 2) == 2
+    dimension = random.randint(1, 100)
+    x = _generate_rand_point(dimension)
+    # distance from a pt to itself is 0
+    assert sim.minkowski_distance(x, x, 2) == 0
+
+    # p = 3
+    assert sim.minkowski_distance([0, 0, 0], [1, 0, 0], 3) == 1
+    assert sim.minkowski_distance([0, 0, 0], [0, 0, 0], 3) == 0
+    assert sim.minkowski_distance([0, 0, 1], [1, 0, 0], 3) == 2 ** (1/3)
+    assert sim.minkowski_distance(x, x, 3) == 0
+
+
