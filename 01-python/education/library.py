@@ -1,3 +1,4 @@
 def draw_library():
-    print("library not found")
+    print("This is a great library")
+    print("It is located in the GSU!")
     return
