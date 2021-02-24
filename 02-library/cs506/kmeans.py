@@ -2,6 +2,7 @@ from collections import defaultdict
 from math import inf
 import random
 import csv
+from cs506 import sim
 
 
 def point_avg(points):
@@ -11,7 +12,13 @@ def point_avg(points):
     
     Returns a new point which is the center of all the points.
     """
-    raise NotImplementedError()
+    dim = len(points[0])
+    avg = [0 for x in range(dim)]
+
+    for i in range(len(points)):
+        avg = [avg[j] + points[i][j] for j in range(dim)]
+
+    return [avg[k] / len(points) for k in range(dim)]
 
 
 def update_centers(dataset, assignments):
@@ -21,7 +28,15 @@ def update_centers(dataset, assignments):
     Compute the center for each of the assigned groups.
     Return `k` centers in a list
     """
-    raise NotImplementedError()
+    k = len(set(assignments))
+    centers = [[] for i in range(k)]
+
+    for i in range(len(assignments)):
+        ind = assignments[i]
+        centers[ind] += [dataset[i]]
+
+    return [point_avg(center) for center in centers]
+
 
 def assign_points(data_points, centers):
     """
@@ -43,20 +58,34 @@ def distance(a, b):
     """
     Returns the Euclidean distance between a and b
     """
-    raise NotImplementedError()
+    return sim.euclidean_dist(a, b)
+
 
 def distance_squared(a, b):
-    raise NotImplementedError()
+    return distance(a, b) ** 2
+
 
 def generate_k(dataset, k):
     """
     Given `data_set`, which is an array of arrays,
     return a random set of k points from the data_set
     """
-    raise NotImplementedError()
+    return random.sample(dataset, k)
+
 
 def cost_function(clustering):
-    raise NotImplementedError()
+    k = len(clustering)
+    res = 0
+
+    for i in range(k):
+        center = point_avg(clustering[i])
+        norms = 0
+        for p in clustering[i]:
+            norms = distance_squared(p, center)
+
+        res += norms
+
+    return res
 
 
 def generate_k_pp(dataset, k):
@@ -66,7 +95,17 @@ def generate_k_pp(dataset, k):
     where points are picked with a probability proportional
     to their distance as per kmeans pp
     """
-    raise NotImplementedError()
+    centers = [random.choice(dataset)]
+
+    distances = [[distance_squared(centers[0], p), p] for p in dataset]
+    distances.sort(reverse=True)
+
+    i = 1
+    while i < k:
+        centers.append(distances[i - 1][1])
+        i += 1
+    
+    return centers
 
 
 def _do_lloyds_algo(dataset, k_points):
