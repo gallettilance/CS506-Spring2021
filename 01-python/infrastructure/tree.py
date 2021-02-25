@@ -1,3 +1,11 @@
 def draw_tree():
-    print("tree not found")
+    print('Here are some trees.')
+    print('   *         *         *          \n'
+          '  ***       ***       ***         \n'
+          ' *****     *****     *****        \n'
+          '*******   *******   *******       \n'
+          '   *         *         *          \n'
+          '   *         *         *          \n'
+          '   *         *         *            ')
     return
+
