@@ -1,6 +1,9 @@
 def read_csv(csv_file_path):
-    """
-        Given a path to a csv file, return a matrix (list of lists)
-        in row major.
-    """
-    raise NotImplementedError()
+
+    with open(csv_file_path) as f:
+        f=f.readlines()
+        f_stripped=[]
+        for line in f:
+            line.strip("\n")
+            f_stripped.append(line)
+    return f_stripped
