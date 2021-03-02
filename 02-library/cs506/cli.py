@@ -4,7 +4,8 @@ import sys
 import logging
 import traceback
 
-from cs506 import kmeans,read
+import kmeans
+import read
 
 def main():
     """Generate the CLI bits
@@ -99,3 +100,5 @@ class _CliParser():
 
     def kmeans_pp(self, args, func=kmeans_template):
         func(self, args, kmeans.k_means_pp)
+
+main()
