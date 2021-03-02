@@ -1,3 +1,3 @@
 def draw_road():
-    print("road not found")
-    return
+    for x in range(20):
+        print('|      ||      |')
