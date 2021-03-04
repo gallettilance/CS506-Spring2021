@@ -2,6 +2,7 @@ from collections import defaultdict
 from math import inf
 import random
 import csv
+from cs506 import sim
 
 
 def point_avg(points):
@@ -11,7 +12,25 @@ def point_avg(points):
     
     Returns a new point which is the center of all the points.
     """
-    raise NotImplementedError()
+    
+    length=len(points[0])
+    res=[]
+    for i in range(length):
+        res.append([])
+    for i in range(len(points)):
+        for ind_item in range(len(points[i])):
+            res[ind_item].append(points[i][ind_item])
+    for i in range(len(res)):
+        sum=0
+        for j in range(len(res[i])):
+            sum+=res[i][j]
+        res[i]=sum/len(res[i])
+    return res
+    
+        
+
+
+
 
 
 def update_centers(dataset, assignments):
@@ -21,7 +40,18 @@ def update_centers(dataset, assignments):
     Compute the center for each of the assigned groups.
     Return `k` centers in a list
     """
-    raise NotImplementedError()
+    new_centers=[]
+    k=len(set(assignments))
+    for i in range(k):
+        new_centers.append([])
+    for i in range(k):
+        for j in range(len(assignments)):
+            if assignments[j]==i:
+                new_centers[i].append(dataset[j])
+    for ind_each in range(len(new_centers)):
+        new_centers[ind_each]=point_avg(new_centers[ind_each])
+    return new_centers
+
 
 def assign_points(data_points, centers):
     """
@@ -43,21 +73,31 @@ def distance(a, b):
     """
     Returns the Euclidean distance between a and b
     """
-    raise NotImplementedError()
+    dis = sim.euclidean_dist(a,b)
+    return dis
 
 def distance_squared(a, b):
-    raise NotImplementedError()
+    dist = sim.euclidean_dist(a,b)
+    return (dist**2)
+
 
 def generate_k(dataset, k):
     """
     Given `data_set`, which is an array of arrays,
     return a random set of k points from the data_set
     """
-    raise NotImplementedError()
+    res=random.sample(dataset,k)
+    return res
 
 def cost_function(clustering):
-    raise NotImplementedError()
-
+    k=len(clustering.keys())
+    res=0
+    for i in range(k):
+        center=point_avg(clustering[i])
+        for j in clustering[i]:
+            temp=distance_squared(j,center)
+            res+=temp
+    return res
 
 def generate_k_pp(dataset, k):
     """
@@ -66,7 +106,21 @@ def generate_k_pp(dataset, k):
     where points are picked with a probability proportional
     to their distance as per kmeans pp
     """
-    raise NotImplementedError()
+    centers=[]
+    
+    first_center=random.choice(dataset)
+    centers.append(first_center)
+    for i in range(k-1):
+        compare=[]
+        previous_center=centers[i]
+        for ind_item in range(len(dataset)):
+            temp=distance_squared(dataset[ind_item],previous_center)
+            compare.append(temp)
+        res_compare=sorted(compare)
+        larger_dis=res_compare[-1]
+        centers.append(dataset[compare.index(larger_dis)])
+    return centers
+
 
 
 def _do_lloyds_algo(dataset, k_points):
