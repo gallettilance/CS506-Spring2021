@@ -1,3 +1,7 @@
 def draw_tree():
-    print("tree not found")
+    file = open("tree.txt", 'r')
+    lines = file.readlines()
+
+    for line in lines:
+        print(line)
     return
