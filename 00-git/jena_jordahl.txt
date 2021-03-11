@@ -1,0 +1,7 @@
+This is some data to have in the file.
+
+Editing this because I already put the file in the 00-git/ directory.
+
+This edit will replace the file I created in the original pull request.
+
+Another change for good measure.
