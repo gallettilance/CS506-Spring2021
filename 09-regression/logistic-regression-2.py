@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib import colors
 import sklearn.datasets as datasets
 from sklearn.pipeline import make_pipeline
 from sklearn.linear_model import LogisticRegression
@@ -46,10 +47,10 @@ def generate_xor_data():
 
 X, Y = generate_line_data()
 
-colors = np.array([x for x in 'bgrcmykbgrcmykbgrcmykbgrcmyk'])
-colors = np.hstack([colors] * 20)
+cs = np.array([x for x in 'bgrcmykbgrcmykbgrcmykbgrcmyk'])
+cs = np.hstack([cs] * 20)
 
-plt.scatter(X[:,0],X[:,1],color=colors[Y].tolist(), s=50, alpha=0.8)
+plt.scatter(X[:,0],X[:,1],color=cs[Y].tolist(), s=50, alpha=0.8)
 plt.show()
 
 # for xor to be fit
@@ -68,13 +69,13 @@ xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
 meshData = np.c_[xx.ravel(), yy.ravel()]
 
 fig, ax = plt.subplots()
-Z = model.predict(meshData)
-Z = Z.reshape(xx.shape)
-ax.contourf(xx, yy, Z, alpha=.3, cmap=plt.cm.Paired)
+A = model.predict_proba(meshData)[:, 1].reshape(xx.shape)
+Z = model.predict(meshData).reshape(xx.shape)
+ax.contourf(xx, yy, A, cmap="RdBu", vmin=0, vmax=1)
 ax.axis('off')
 
 # Plot also the training points
 T = model.predict(X)
 T = T.reshape(X[:,0].shape)
-ax.scatter(X[:, 0], X[:, 1], color=colors[Y].tolist(), s=50, alpha=0.9)
+ax.scatter(X[:, 0], X[:, 1], color=cs[Y].tolist(), s=50, alpha=0.9)
 plt.show()
