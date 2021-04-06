@@ -6,8 +6,10 @@ from sklearn.preprocessing import StandardScaler
 from cs506 import dbscan
 
 centers = [[1, 1], [-1, -1], [1, -1]]
+# scatter some points around the centers randomly
 X, _ = datasets.make_blobs(n_samples=750, centers=centers, cluster_std=0.4,
                             random_state=0)
+
 plt.scatter(X[:,0],X[:,1],s=10, alpha=0.8)
 plt.show()
 
