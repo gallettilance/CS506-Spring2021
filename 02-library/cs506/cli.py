@@ -4,7 +4,7 @@ import sys
 import logging
 import traceback
 
-from cs506 import kmeans,read
+from cs506 import kmeans, read
 
 def main():
     """Generate the CLI bits
@@ -59,6 +59,18 @@ class _CliParser():
             help="the number of clusters")
         kmeans_parser.set_defaults(func=self.kmeans)
 
+        kmeans_parser = subparsers.add_parser(
+            'kmeans_pp',
+            help='Cluster dataset using kmeans.',
+            description='Cluster dataset using Lloyd\'s algo for kmeans.')
+        kmeans_parser.add_argument(
+            'dataset',
+            help="path to a dataset")
+        kmeans_parser.add_argument(
+            'k',
+            help="the number of clusters")
+        kmeans_parser.set_defaults(func=self.kmeans)
+
         args = parser.parse_args()
         logging.basicConfig(
             level=logging.DEBUG if args.verbose else logging.WARNING
@@ -75,7 +87,7 @@ class _CliParser():
         """Run the kmeans command
         """
         import csv
-        dataset = read.read_csv(args.dataset_file)
+        dataset = read.read_csv(args.dataset)
         clustering = func(dataset=dataset, k=int(args.k))
         cost = kmeans.cost_function(clustering)
 
@@ -99,3 +111,10 @@ class _CliParser():
 
     def kmeans_pp(self, args, func=kmeans_template):
         func(self, args, kmeans.k_means_pp)
+
+if __name__ == "__main__":
+    main()
+
+# example use
+# python cs506/cli.py kmeans './tests/test_files/dataset_1.csv' 3
+# python cs506/cli.py kmeans_pp './tests/test_files/dataset_1.csv' 3

@@ -1,7 +1,9 @@
 from collections import defaultdict
 from math import inf
-import random
-import csv
+from random import random
+
+import numpy as np
+from numpy.linalg import norm
 
 
 def point_avg(points):
@@ -11,7 +13,14 @@ def point_avg(points):
     
     Returns a new point which is the center of all the points.
     """
-    raise NotImplementedError()
+    num = len(points[0])
+    new_center = []
+    for cnt in range(num):
+        sum = 0
+        for p in points:
+            sum += p[cnt]
+        new_center.append(float("%.6f" % (sum / float(len(points)))))
+    return new_center
 
 
 def update_centers(dataset, assignments):
@@ -21,7 +30,15 @@ def update_centers(dataset, assignments):
     Compute the center for each of the assigned groups.
     Return `k` centers in a list
     """
-    raise NotImplementedError()
+    poss_clusters = defaultdict(list)
+    centers = []
+    for assignment, point in zip(assignments, dataset):
+        poss_clusters[assignment].append(point)
+
+    for points in poss_clusters.values():
+        centers.append(point_avg(points))
+
+    return centers
 
 def assign_points(data_points, centers):
     """
@@ -38,25 +55,102 @@ def assign_points(data_points, centers):
         assignments.append(shortest_index)
     return assignments
 
+def calc_min_dist(data_points, centers):
+    """
+    """
+    min_dist_values = []
+    for point in data_points:
+        smallest = inf  # positive infinity
+        dataset_idx = 0
+        for i in range(len(centers)):
+            val = distance_squared(point, centers[i])
+            if val < smallest:
+                smallest = val
+        min_dist_values.append(smallest)
+    return min_dist_values
 
 def distance(a, b):
     """
     Returns the Euclidean distance between a and b
     """
-    raise NotImplementedError()
+    aa = np.array(a)
+    bb = np.array(b)
+    distant =  norm(aa-bb)
+    return distant
+
 
 def distance_squared(a, b):
-    raise NotImplementedError()
+    dst = distance(a,b) ** 2
+    return dst
+
 
 def generate_k(dataset, k):
     """
     Given `data_set`, which is an array of arrays,
     return a random set of k points from the data_set
     """
-    raise NotImplementedError()
+    random_state=np.random.randint(0,2**32)
+    np.random.seed(random_state)
+    centroids = []
+    size = len(dataset)
+
+    for _ in range(k):
+        random_center = np.random.randint(0, size)
+        centroids.append(dataset[random_center])
+    return centroids
+
 
 def cost_function(clustering):
-    raise NotImplementedError()
+    k = len(clustering)
+    centers = []
+    for points in clustering.values():
+        centers.append(point_avg(points))
+
+    ds_dist = 0
+    elem_cnt = 0
+    for i in range(k):
+        clust_dist = 0
+        for j in range(len(clustering[i])):
+            clust_dist += distance_squared(clustering[i][j], centers[i])
+            elem_cnt  += 1
+        ds_dist += clust_dist
+    dataset_cost = (1/elem_cnt)*(ds_dist)
+    return dataset_cost
+
+def generate_centers_pp(dataset, centroids, k):
+    random_state=np.random.randint(0,2**32)
+    np.random.seed(random_state)
+    new_centers = []
+    for _ in range(1,k):
+        sum_sqd = 0
+        prob_array = []
+        dist_sqds = calc_min_dist(dataset, centroids)
+        for j in range(len(dist_sqds)):
+            sum_sqd += dist_sqds[j]
+        max_p = -inf
+        min_p = inf
+        for ds in range(len(dist_sqds)):
+            prob_array.append(dist_sqds[ds] / sum_sqd)
+            if (dist_sqds[ds]/ sum_sqd) > (max_p):
+                max_p = dist_sqds[ds]/ sum_sqd
+            if dist_sqds[ds]/ sum_sqd < min_p and dist_sqds[ds] != 0:
+                min_p = dist_sqds[ds]/ sum_sqd
+        goal = min_p + ((max_p - min_p)/2)
+        select_rand = min_p
+        incr = max_p - min_p/(len(dataset)-len(centroids))
+        while select_rand < goal: select_rand = np.random.uniform(min_p, max_p)
+        t = 0
+        for q in range(len(prob_array)):
+            incr = incr * (1+q)
+            for p in range(len(prob_array)):
+                if prob_array[p] < select_rand + incr and prob_array[p] > select_rand - incr:
+                    t = p
+                    break
+            if prob_array[t] < select_rand + incr and prob_array[t] > select_rand - incr:
+                break
+        new_centers.append(dataset[t])
+
+        return new_centers
 
 
 def generate_k_pp(dataset, k):
@@ -66,7 +160,24 @@ def generate_k_pp(dataset, k):
     where points are picked with a probability proportional
     to their distance as per kmeans pp
     """
-    raise NotImplementedError()
+    random_state = np.random.randint(0, 2 ** 32)
+    np.random.seed(random_state)
+    centroids = []
+    size = len(dataset)
+    random_center = np.random.randint(0, size)
+    centroids.append(dataset[random_center])
+
+    if k > 1:
+        point = generate_centers_pp(dataset, centroids, k)
+        if point != []:
+            centroids.append(point)
+    if len(centroids) != k:
+        remaining = k-len(centroids)
+        for _ in range(remaining):
+            random_center = np.random.randint(0, size)
+            centroids.append(dataset[random_center])
+
+    return centroids
 
 
 def _do_lloyds_algo(dataset, k_points):

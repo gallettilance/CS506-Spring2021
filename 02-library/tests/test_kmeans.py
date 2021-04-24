@@ -76,7 +76,7 @@ def test_kmeans_when_k_is_3(datasetPath, expected1, expected2, expected3):
     clustering = kmeans.k_means(dataset=dataset, k=3)
     cost = kmeans.cost_function(clustering)
 
-    for _ in range(10):
+    for _ in range(20):
         new_clustering = kmeans.k_means(dataset=dataset, k=3)
         new_cost = kmeans.cost_function(clustering)
         if new_cost < cost:
