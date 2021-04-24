@@ -1,3 +1,9 @@
 def draw_park():
-    print("park not found")
+    print("This is a park!")
+    print(" ___________________")
+    print("|   |__________|    |")
+    print("|                   |")
+    print("|     __________    |")
+    print("|    |          |   |")
+    print("|    |          |   |")
     return
