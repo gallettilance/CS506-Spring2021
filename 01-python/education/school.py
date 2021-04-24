@@ -1,3 +1,5 @@
+import random
 def draw_school():
-    print("school not found")
+
+    print("--this is a high school--")
     return
