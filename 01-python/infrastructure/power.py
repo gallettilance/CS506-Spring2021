@@ -1,3 +1,15 @@
 def draw_power_plant():
-    print("power plant not found")
+    print("               \n"
+          "   (   )       \n"
+          "  (  )         \n"
+          "  ( )          \n"
+          " |  |          \n"
+          " |  |_________ \n"
+          " |   ____    | \n"
+          " |   |  |    | \n"
+          " |   |_ |_   | \n"
+          " |     | /   | \n"
+          " |     |/    | \n"
+          " |           | \n"
+          "  -----------  \n")
     return
