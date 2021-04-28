@@ -1,3 +1,8 @@
 def draw_restaurant():
-    print("restaurant not found")
+    print("---------------------")
+    print("---------------------")
+    print("---------------------")
+    print("--------Canes--------")
+    print("---------------------")
+    print("---------------------")
     return
