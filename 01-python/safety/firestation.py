@@ -1,3 +1,9 @@
 def draw_firestation():
-    print("fire station not found")
+    print("This is a fire station!")
+    print(" __________________________")
+    print("|                          |")
+    print("|        fire station      |")
+    print("|     ___    ___    ___    |")
+    print("|    |   |  |   |  |   |   |")
+    print("|    |   |  |   |  |   |   |")
     return

@@ -1,3 +1,9 @@
 def draw_market():
-    print("market not found")
+    print("This is a market!")
+    print(" ___________________")
+    print("|                   |")
+    print("|       market      |")
+    print("|     __________    |")
+    print("|    |          |   |")
+    print("|    |          |   |")
     return

@@ -1,3 +1,10 @@
 def draw_policestation():
-    print("police station not found")
+    print("This is a police station!")
+    print(" __________________________")
+    print("|                          |")
+    print("|        police station    |")
+    print("|     ___           ___    |")
+    print("|    |   |         |   |   |")
+    print("|    |   |         |   |   |")
+    return
     return
