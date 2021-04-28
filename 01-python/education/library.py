@@ -1,3 +1,3 @@
 def draw_library():
-    print("library not found")
+    print("Git library of Zoom University is found.")
     return
