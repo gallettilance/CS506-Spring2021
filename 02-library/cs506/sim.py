@@ -1,3 +1,5 @@
+import numpy as np 
+
 def euclidean_dist(x, y):
     res = 0
     for i in range(len(x)):
@@ -5,12 +7,13 @@ def euclidean_dist(x, y):
     return res**(1/2)
 
 def manhattan_dist(x, y):
-    raise NotImplementedError()
+    return sum(abs(a-b) for a, b in zip(x,y))
 
 def jaccard_dist(x, y):
-    raise NotImplementedError()
+    intersect = x.intersection(y)
+    return float(len(intersect) / len(x)+len(y) - len(intersect))
 
 def cosine_sim(x, y):
-    raise NotImplementedError()
+    return np.dot(x,y)/(np.norm(x)*np.norm(y))
 
 # Feel free to add more
