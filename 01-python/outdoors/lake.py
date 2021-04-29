@@ -1,3 +1,6 @@
 def draw_lake():
-    print("lake not found")
+    for i in range(5):
+        print("|~~~~~~~~~~~~~~~~~~|")
+        
+
     return
