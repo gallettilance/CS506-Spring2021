@@ -1,3 +1,5 @@
 def draw_park():
-    print("park not found")
+    print(" O  O O O O O O O  ")
+    print(" |  | | | | | | |  ")
+    print("\/\/\/\/\/\/\/\/\//")
     return

@@ -1,3 +1,6 @@
 def draw_policestation():
-    print("police station not found")
+    for i in range(10):
+        print("++++++++++++++++")
+        if i == 5:
+            print("+++++JAIL+++++++")
     return
