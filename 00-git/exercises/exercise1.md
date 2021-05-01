@@ -82,7 +82,7 @@ origin	https://github.com/gallettilance/CS506-Spring2021.git (push)
     - create a separate *history* for each new *feature*
 - More details can be found here:  [branches](../git_6_branches.md)
 
-To list all your branches:
+To list all your branches: (* appears next to branch currently on)
 
 ```git
 git branch
@@ -97,7 +97,7 @@ Verify the branch was created by listing the branches using the above command.
 
 <kbd> git branch </kbd> 
 
-Do not forget to switch to the new branch you just created.    
+Do not forget to switch to the new branch you just created. (`git checkout <any_branch_name>` is used to switch between all branches).
 
 <kbd> git checkout <branch_name> </kbd>
 
@@ -109,6 +109,8 @@ Do not forget to switch to the new branch you just created.
   README.md
   my-new-file.md
 ```
+
+(`touch` command creates files without content)
 
 ## Step 9: add content to this file
 
@@ -130,11 +132,13 @@ Add some content to this file using your editor of choice.
 <img src="../images/git_shopping_cart.jpg" width="99%" height="99%" />
 </p>
 
+(If you forget to `git add  <filename>` as you go, `git add .` adds all files that have been changed.)
+
 ### Step 10.1: get status of repo
 
 <kbd> git status </kbd>
 
-Let's you see what files git is aware of / tracking.
+Let's you see what files git is aware of / tracking. (See file name under "Untracked files:")
     
 ### Step 10.2:  add/stage a file
 
@@ -150,14 +154,15 @@ git add my-new-file.md
 
 <kbd> git status </kbd>
 
-Ensure that the file is now tracked by git.
+Ensure that the file is now tracked by git. (See file name under "Changes to be committed:")
 
 ### Step 10.4: commit the file
 
 <kbd> git commit -m 'message' </kbd>  
 
 **Note:**  to `commit` a file is to "log the change":  
-- changes are recorded in Git (interaction is with local repo)
+- changes are recorded in Git (interaction is with local repo, changes only appear locally until pushed)
+- descriptive commit messages can be very helpful in knowing what changes were made to the repo and when
 
 ### Step 10.5:  get status of repo
 
@@ -183,6 +188,10 @@ Still on GitHub, select the green button "Compare and pull request"
 
 <img src="../images/pull_request_button.png" align="left" height="40" width="180" >   <br> <br>
 
+Once you have opened a pull request, in the gray bar you should see "base: main" <- "compare: <branch name>". Both base & compare can be changed from the dropdown that appears, with base being the final location of the changes in <branch name>. Typically, your base is main/master because that is where the work from each different branch will come together. Once again, create a sperate branch for each new feature of your project you are working on.
+
+Title the pull request and select the green button "Create pull request".
+
 ## Step 13: merge the pull request (on GitHub)
 
 Select the green button "Merge pull request".
@@ -193,6 +202,8 @@ Notice that the changes from your branch are now in the `master` branch on GitHu
 
 <kbd> git checkout master </kbd>  
 <kbd> git pull origin master </kbd>
+
+This is very important! It allows you to keep your local version of the repo up to date with changes being made to the repo by collaborators on other branches.
 
 ## Step 15: delete the file
 
