@@ -4,6 +4,8 @@
 
 https://github.com/gallettilance/CS506-Spring2021
 
+Forking is different than cloning! A fork is making an identical copy of a repo on your own github account. A clone is like "downloading" the current version of the repo on github to your local machine. (When changes are made on your machine, you must push them to your fork so they appear on github. Once changes are on github, you must make a pull request so that your forked repo can be merged with the original.)
+
 ## Step 2: Clone your fork
 
 Navigate to your fork on GitHub of the above repo and clone it locally. 
@@ -28,7 +30,7 @@ origin	https://github.com/<username>/CS506-Spring2021.git (push)
 
 ## Step 5: add an 'upstream' remote
 
-It should point to the repository you forked
+It should point to the repository you forked (aka the "parent" repo you copied into your github)
 
 ```bash
 git remote add upstream https://github.com/gallettilance/CS506-Spring2021.git
@@ -69,7 +71,7 @@ git branch
 
 ## Step 11: create a file
 
-Create a file called `<github-username>.txt` with your name.
+Create a file called `<github-username>.txt` with your name. (can use the `touch` command again)
 
 ## Step 12: add/stage this file
 

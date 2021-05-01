@@ -188,7 +188,7 @@ Still on GitHub, select the green button "Compare and pull request"
 
 <img src="../images/pull_request_button.png" align="left" height="40" width="180" >   <br> <br>
 
-Once you have opened a pull request, in the gray bar you should see "base: main" <- "compare: <branch name>". Both base & compare can be changed from the dropdown that appears, with base being the final location of the changes in <branch name>. Typically, your base is main/master because that is where the work from each different branch will come together. Once again, create a sperate branch for each new feature of your project you are working on.
+Once you have opened a pull request, in the gray bar you should see "base: main" <- "compare: \<branch name\>". Both base & compare can be changed from the dropdown that appears, with base being the final location of the changes in \<branch name\>. Typically, your base is main/master because that is where the work from each different branch will come together. Once again, create a sperate branch for each new feature of your project you are working on.
 
 Title the pull request and select the green button "Create pull request".
 
@@ -203,7 +203,7 @@ Notice that the changes from your branch are now in the `master` branch on GitHu
 <kbd> git checkout master </kbd>  
 <kbd> git pull origin master </kbd>
 
-This is very important! It allows you to keep your local version of the repo up to date with changes being made to the repo by collaborators on other branches.
+This is very important! It allows you to keep your local version of the repo up to date with changes being made to the repo on github by collaborators on other branches.
 
 ## Step 15: delete the file
 
