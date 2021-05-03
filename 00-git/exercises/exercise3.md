@@ -126,15 +126,16 @@ This command should open your text editor. At the very top, you should see some
 lines which begin with the word "pick". These are the commits you have made. Go
 ahead and explore the various options given to you by replacing the word "pick"
 with some of the options given below. Specifically, we want you to try:
-"reword" which allows you to change the commit message.
 
-"edit" which will pause the rebase when that commit is reached and allow you to
+- "reword" which allows you to change the commit message.
+
+- "edit" which will pause the rebase when that commit is reached and allow you to
 edit the files.
 
-"squash" which will allow you to combine the add and subtract function into a
+- "squash" which will allow you to combine the add and subtract function into a
 single commit.
 
-Finally, we also want you to try adding the final two commits out of order. To
+- Finally, we also want you to try adding the final two commits out of order. To
 do this, simply place the first line beginning with "pick" below the second line.
 
 Go ahead and try out these commands one at a time to see what they do. Once you
@@ -143,8 +144,10 @@ have edited the file, simply save it and then close it. You may need to use the 
 git rebase --continue
 git rebase --abort
 ```
-Once you have tried one of these options, go ahead and use the revert command to
-undo what you just did and try the next command.
+Once you have tried one of these options, you can either reset to a past commit
+by using the reset command (see the [documentation](https://git-scm.com/docs/git-reset)
+for `git reset`) and then redo the undone commits to "undo" the rebase, or just
+move on to try the next command.
 
 ## Step 7: Finishing up
 
