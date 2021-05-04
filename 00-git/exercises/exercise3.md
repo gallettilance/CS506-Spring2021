@@ -43,7 +43,8 @@ git pull origin master
 git checkout new-feature
 ```
 These commands updated your master branch with the change you made on GitHub
-and then moved you back to the new-feature branch.
+and then moved you back to the new-feature branch. It is important to continue merging work on your branch with master so that when you pull master, you have the latest code base.
+
 You could alternatively run
 ```bash
 git fetch origin
